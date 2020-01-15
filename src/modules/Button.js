@@ -8,11 +8,11 @@ export default function createButton(index) {
   let isPressed = false;
 
   let base = { img: new Image() };
-  base.img.src = "base.png";
+  base.img.src = "../images/base.png";
   base.X = btnX + index * (gap + base.img.width);
 
   let cap = { img: new Image() };
-  cap.img.src = "cap.png";
+  cap.img.src = "../images/cap.png";
   cap.X = base.X - offset;
 
   function down() {

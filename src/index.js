@@ -1,4 +1,5 @@
-import createButton from "./src/modules/Button.js";
+import createButton from "./modules/Button.js";
+import "./style.scss";
 
 let cvs = document.getElementById("canvas");
 let ctx = cvs.getContext("2d");
@@ -31,7 +32,6 @@ document.addEventListener("keyup", function(event) {
 function draw() {
   ctx.drawImage(bg, 0, 0);
   for (let i = 0; i < buttons.length; i++) {
-    ctx.drawImage(shadows[i].image, shadows[i].x, shadows[i].y + 4);
     ctx.drawImage(buttons[i].image, buttons[i].x, buttons[i].y);
   }
   requestAnimationFrame(draw);
