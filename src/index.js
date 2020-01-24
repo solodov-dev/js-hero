@@ -1,4 +1,4 @@
-import createButton from "./modules/Button.js";
+import { buttons } from "./modules/Buttons.js";
 import createAudio from "./modules/Audio.js";
 import handleDrop from "./modules/File.js";
 import "./style.scss";
@@ -11,51 +11,37 @@ let audio = createAudio();
 // Resources
 let bg = new Image();
 bg.src = Bg;
-let keys = ["KeyH", "KeyJ", "KeyK", "KeyL"];
-let buttons = [];
 
-for (let i = 0; i < keys.length; i++) {
-  buttons.push(createButton(i));
-}
+let frame = 0;
+let item = 0;
 
-// Draw the animation
+// Main animation function
 function draw() {
+  frame += 1;
+
+  //Background
   ctx.drawImage(bg, 0, 0);
+
+  //Buttons
   for (let i = 0; i < buttons.length; i++) {
     ctx.drawImage(buttons[i].base.img, buttons[i].base.X, buttons[i].base.Y);
     ctx.drawImage(buttons[i].cap.img, buttons[i].cap.X, buttons[i].cap.Y);
   }
+
+  if (audio.data() && frame % 30 == 0) {
+    if (audio.data()[item] != 0) {
+      ctx.fill();
+    }
+    item++;
+  }
+
   requestAnimationFrame(draw);
 }
 
 draw();
 
-// Event listeners for user pressing keys
-//
-document.addEventListener("keydown", function(event) {
-  let index = keys.indexOf(event.code);
-  if (index !== -1) {
-    buttons[index].down();
-  }
-});
-
-document.addEventListener("keyup", function(event) {
-  let index = keys.indexOf(event.code);
-  if (index !== -1) {
-    buttons[index].up();
-  }
-});
-
-// Event listener for dropping file
-//
+// Event listeners for dropping an audio file
+// Prevent browser from opening the file by default
 document.addEventListener("dragover", e => e.preventDefault());
-
-document.addEventListener(
-  "drop",
-  e => {
-    e.preventDefault();
-    e.stopPropagation();
-    alert(e);
-  },
-  false
-);
+document.addEventListener("click", audio.stop);
+document.addEventListener("drop", e => handleDrop(e, audio.load));

@@ -9,6 +9,7 @@ module.exports = {
   },
   devtool: "inline-source-map",
   devServer: {
+    inline: true,
     contentBase: path.join(__dirname, "dist")
   },
   module: {

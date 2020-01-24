@@ -5,8 +5,10 @@ const btnX = 155;
 const btnY = 420;
 const offset = 4;
 const gap = 2;
+let buttons = [];
+const keys = ["KeyH", "KeyJ", "KeyK", "KeyL"];
 
-export default function createButton(index) {
+function createButton(index) {
   let isPressed = false;
 
   let base = { img: new Image() };
@@ -32,3 +34,25 @@ export default function createButton(index) {
   }
   return { isPressed, base, cap, down, up };
 }
+
+for (let i = 0; i < keys.length; i++) {
+  buttons.push(createButton(i));
+}
+
+// Event listeners for user pressing keys
+// Check if the key is defined
+document.addEventListener("keydown", function(event) {
+  let index = keys.indexOf(event.code);
+  if (index !== -1) {
+    buttons[index].down();
+  }
+});
+
+document.addEventListener("keyup", function(event) {
+  let index = keys.indexOf(event.code);
+  if (index !== -1) {
+    buttons[index].up();
+  }
+});
+
+export { buttons };
