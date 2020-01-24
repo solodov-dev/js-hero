@@ -1,11 +1,10 @@
 import { buttons } from "./modules/Buttons.js";
-import createAudio from "./modules/Audio.js";
+import { source } from "./modules/Audio.js";
 import "./style.scss";
 import Bg from "./images/bg.png";
 
 let cvs = document.getElementById("canvas");
 let ctx = cvs.getContext("2d");
-let audio = createAudio();
 
 // Resources
 let bg = new Image();
@@ -27,12 +26,12 @@ function draw() {
     ctx.drawImage(buttons[i].cap.img, buttons[i].cap.X, buttons[i].cap.Y);
   }
 
-  if (audio.data() && frame % 30 == 0) {
-    if (audio.data()[item] != 0) {
-      ctx.fill();
-    }
-    item++;
-  }
+  // if (audio.data() && frame % 30 == 0) {
+  //   if (audio.data()[item] != 0) {
+  //     ctx.fill();
+  //   }
+  //   item++;
+  // }
 
   requestAnimationFrame(draw);
 }

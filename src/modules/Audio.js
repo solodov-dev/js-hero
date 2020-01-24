@@ -1,26 +1,20 @@
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let context = new AudioContext();
+let source = context.createBufferSource();
 
 function load(file) {
   context.decodeAudioData(file, function(buffer) {
-    fdata = decode(buffer);
-    audio = play(buffer);
+    source.buffer = buffer;
+    source.connect(context.destination);
   });
 }
 
-function play(buffer) {
-  // We have to create source every time we load a new song
-  let source = context.createBufferSource();
-  source.buffer = buffer;
-  source.connect(context.destination);
+function play() {
   source.start(0);
-  return source;
 }
 
 function stop() {
-  if (audio) {
-    audio.stop();
-  }
+  source.stop(0);
 }
 
 function decode(buffer) {
@@ -70,3 +64,5 @@ function handleDrop(e, callback) {
 document.addEventListener("dragover", e => e.preventDefault());
 document.addEventListener("click", stop);
 document.addEventListener("drop", e => handleDrop(e, load));
+
+export { source };
