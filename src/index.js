@@ -17,7 +17,6 @@ let score = 0;
 let frame = 0;
 let item = 0;
 
-// Main animation function
 function draw() {
   frame += 1;
 
@@ -32,6 +31,13 @@ function draw() {
 
   //Score
   ctx.fillText(`Score: ${score}`, 20, 40);
+
+  // Play button
+  if (audioData == null) {
+    ctx.fillText("No audio", 20, 80);
+  } else {
+    ctx.fillText("Play >", 20, 80);
+  }
   // if (audio.data() && frame % 30 == 0) {
   //   if (audio.data()[item] != 0) {
   //     ctx.fill();

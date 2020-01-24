@@ -1,7 +1,7 @@
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let context = new AudioContext();
 let source = context.createBufferSource();
-let audioData;
+let audioData = null;
 
 function load(file) {
   context.decodeAudioData(file, function(buffer) {
