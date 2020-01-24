@@ -1,11 +1,13 @@
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let context = new AudioContext();
 let source = context.createBufferSource();
+let audioData;
 
 function load(file) {
   context.decodeAudioData(file, function(buffer) {
     source.buffer = buffer;
     source.connect(context.destination);
+    audioData = decode(buffer);
   });
 }
 
@@ -59,10 +61,11 @@ function handleDrop(e, callback) {
   reader.readAsArrayBuffer(file);
 }
 
-// Event listeners for dropping an audio file
+// Dropping an audio file
 // Prevent browser from opening the file by default
 document.addEventListener("dragover", e => e.preventDefault());
-document.addEventListener("click", stop);
 document.addEventListener("drop", e => handleDrop(e, load));
 
-export { source };
+// Playing an audio
+
+export { audioData };
