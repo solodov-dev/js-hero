@@ -1,6 +1,5 @@
 import { buttons } from "./modules/Buttons.js";
 import createAudio from "./modules/Audio.js";
-import handleDrop from "./modules/File.js";
 import "./style.scss";
 import Bg from "./images/bg.png";
 
@@ -40,8 +39,3 @@ function draw() {
 
 draw();
 
-// Event listeners for dropping an audio file
-// Prevent browser from opening the file by default
-document.addEventListener("dragover", e => e.preventDefault());
-document.addEventListener("click", audio.stop);
-document.addEventListener("drop", e => handleDrop(e, audio.load));
