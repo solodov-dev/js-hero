@@ -1,9 +1,11 @@
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let context = new AudioContext();
-let source = context.createBufferSource();
+let source;
 let audioData = null;
+let isPlaying = false;
 
 function load(file) {
+  source = context.createBufferSource();
   context.decodeAudioData(file, function(buffer) {
     source.buffer = buffer;
     source.connect(context.destination);
@@ -13,10 +15,13 @@ function load(file) {
 
 function play() {
   source.start(0);
+  isPlaying = true;
 }
 
 function stop() {
   source.stop(0);
+  isPlaying = false;
+  audioData = null;
 }
 
 function decode(buffer) {
@@ -67,5 +72,14 @@ document.addEventListener("dragover", e => e.preventDefault());
 document.addEventListener("drop", e => handleDrop(e, load));
 
 // Playing an audio
+document.getElementById("canvas").addEventListener("click", () => {
+  if (audioData != null) {
+    if (isPlaying == false) {
+      play();
+    } else {
+      stop();
+    }
+  }
+});
 
-export { audioData };
+export { audioData, isPlaying };
