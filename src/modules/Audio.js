@@ -80,9 +80,18 @@ function audioState() {
 
 function updateTimeline(frame, gap) {
   let timeline = [];
-  let firstInView = 0;
+  let itemInView = 0;
   if (frame > 600) {
-    firstInView = (frame - 600) % gap;
+    itemInView = (frame - 600) % gap;
+  }
+  let yPosition = frame - itemInView * gap;
+  while (yPosition > 0) {
+    timeline.push({
+      data: audioData[itemInView],
+      Y: yPosition
+    });
+    itemInView++;
+    yPosition = frame - itemInView * gap;
   }
 
   return timeline;
