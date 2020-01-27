@@ -39,7 +39,9 @@ function draw() {
     let timeline = updateTimeline(frame, gap);
     for (let i = 0; i < timeline.length; i++) {
       if (timeline[i].data != 0) {
-        ctx.fillRect(155, timeline[i].Y, 20, 20);
+        let horizontalGap =
+          (Math.floor(Math.abs(timeline[i].data) * 100) % 4) * 35;
+        ctx.fillRect(160 + horizontalGap, timeline[i].Y, 20, 20);
       }
     }
   }
