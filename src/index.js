@@ -1,19 +1,20 @@
 import { buttons } from "./modules/Buttons.js";
-import { audioData, isPlaying } from "./modules/Audio.js";
+import { audioState, updateTimeline, isPlaying } from "./modules/Audio.js";
 import "./style.scss";
 import Bg from "./images/bg.png";
 
 let cvs = document.getElementById("canvas");
 let ctx = cvs.getContext("2d");
+
 ctx.font = "30px VT323";
 ctx.fillStyle = "#fff";
 
-// Resources
 let bg = new Image();
 bg.src = Bg;
 
 let score = 0;
 let frame = 0;
+let gap = 30;
 
 function draw() {
   //Background
@@ -29,17 +30,18 @@ function draw() {
   ctx.fillText(`Score: ${score}`, 20, 40);
 
   // Play button
-  if (audioData == null) {
-    ctx.fillText("No audio", 20, 80);
-  } else if (isPlaying == false) {
-    ctx.fillText("Play >", 20, 80);
-  } else {
-    ctx.fillText("Stop ◼", 20, 80);
-  }
+  ctx.fillText(audioState(), 20, 80);
 
   // Move field one frame down if the music is playing
-  if (audioData != null) {
+  if (isPlaying) {
     frame++;
+
+    let timeline = updateTimeline(frame, gap);
+    for (let i = 0; i < timeline.length; i++) {
+      if (timeline[i].data != 0) {
+        ctx.fillRect(155 + j * gap, timeline[i].Y, 20, 20);
+      }
+    }
   }
 
   requestAnimationFrame(draw);

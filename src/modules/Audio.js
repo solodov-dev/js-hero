@@ -66,6 +66,28 @@ function handleDrop(e, callback) {
   reader.readAsArrayBuffer(file);
 }
 
+function audioState() {
+  if (audioData == null) {
+    return "No audio";
+  } else {
+    if (isPlaying == false) {
+      return "Play";
+    } else {
+      return "Stop";
+    }
+  }
+}
+
+function updateTimeline(frame, gap) {
+  let timeline = [];
+  let firstInView = 0;
+  if (frame > 600) {
+    firstInView = (frame - 600) % gap;
+  }
+
+  return timeline;
+}
+
 // Dropping an audio file
 // Prevent browser from opening the file by default
 document.addEventListener("dragover", e => e.preventDefault());
@@ -82,4 +104,4 @@ document.getElementById("canvas").addEventListener("click", () => {
   }
 });
 
-export { audioData, isPlaying };
+export { audioState, updateTimeline, isPlaying };
