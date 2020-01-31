@@ -24,10 +24,16 @@ function stop() {
   audioData = null;
 }
 
+// Decoding the mp3 file. Implemented the simplest solution for now.
+// Filtering the audio data array against the treshold value.
+// If the volume is bigger than treshold we render it as a 'note' on a canvas.
 function decode(buffer) {
-  const treshold = 0.05; // sound peak value to compare to
-  const pace = 22000; // pace to go over data (1s = 44mHz, 20000 = 1/2 sec)
-  const rawData = buffer.getChannelData(0); // 32bit float arrray with raw wavelength data from -1 to +1 at 44mHz
+  // sound peak value to compare to
+  const treshold = 0.05;
+  // pace to go over data (1s = 44mHz, 20000 = 1/2 sec)
+  const pace = 22000;
+  // 32bit float arrray with raw wavelength data from -1 to +1 at 44mHz
+  const rawData = buffer.getChannelData(0);
   const filteredData = [];
   for (let i = 0; i < rawData.length; i += pace) {
     if (Math.abs(rawData[i]) > treshold) {
@@ -39,6 +45,7 @@ function decode(buffer) {
   return filteredData;
 }
 
+// Check dropped files for quantity and type and proceed to decoding.
 function handleDrop(e, callback) {
   e.preventDefault();
   e.stopPropagation();

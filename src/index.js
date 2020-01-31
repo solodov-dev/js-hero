@@ -1,18 +1,19 @@
-import { buttons } from "./modules/Buttons.js";
+import { score, buttons } from "./modules/Buttons.js";
 import { audioState, updateTimeline, isPlaying } from "./modules/Audio.js";
 import "./style.scss";
 import Bg from "./images/bg.png";
 
+// Define canvas context
 let cvs = document.getElementById("canvas");
 let ctx = cvs.getContext("2d");
 
+// Set canvas drawing and font styles
 ctx.font = "30px VT323";
 ctx.fillStyle = "#fff";
 
 let bg = new Image();
 bg.src = Bg;
 
-let score = 0;
 let frame = 0;
 let gap = 30;
 
