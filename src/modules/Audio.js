@@ -14,8 +14,8 @@ function load(file) {
 }
 
 function play() {
-  source.start(0);
   isPlaying = true;
+  setTimeout(() => source.start(0), 4000);
 }
 
 function stop() {
