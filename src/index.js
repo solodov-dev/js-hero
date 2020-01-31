@@ -18,28 +18,31 @@ let frame = 0;
 let gap = 30;
 
 function draw() {
-  //Background
+  // Background
   ctx.drawImage(bg, 0, 0);
 
-  //Buttons
+  // Buttons
   for (let i = 0; i < buttons.length; i++) {
     ctx.drawImage(buttons[i].base.img, buttons[i].base.X, buttons[i].base.Y);
     ctx.drawImage(buttons[i].cap.img, buttons[i].cap.X, buttons[i].cap.Y);
   }
 
-  //Score
+  // Draw the score
   ctx.fillText(`Score: ${score}`, 20, 40);
 
-  // Play button
+  // Draw the play button
   ctx.fillText(audioState(), 20, 80);
 
   // Move field one frame down if the music is playing
   if (isPlaying) {
     frame++;
 
+    // Get the updated timeline of 'notes'
     let timeline = updateTimeline(frame, gap);
+    // Draw the timeline
     for (let i = 0; i < timeline.length; i++) {
       if (timeline[i].data != 0) {
+        // Randomize the column in which the 'note' is drawn
         let horizontalGap =
           (Math.floor(Math.abs(timeline[i].data) * 100) % 4) * 35;
         ctx.fillRect(160 + horizontalGap, timeline[i].Y, 20, 20);

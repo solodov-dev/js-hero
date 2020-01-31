@@ -13,13 +13,17 @@ function createButton(index) {
   let isPressed = false;
 
   let base = { img: new Image() };
-  base.img.src = Base;
-  base.X = btnX + index * (gap + base.img.width);
-  base.Y = btnY;
-
   let cap = { img: new Image() };
+
+  base.img.src = Base;
   cap.img.src = Cap;
-  cap.X = base.X;
+
+  base.img.onload = () => {
+    base.X = btnX + index * (gap + base.img.width);
+    cap.X = base.X;
+  };
+
+  base.Y = btnY;
   cap.Y = base.Y - offset;
 
   function down() {
