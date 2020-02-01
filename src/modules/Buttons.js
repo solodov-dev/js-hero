@@ -18,6 +18,7 @@ function createButton(index) {
   base.img.src = Base;
   cap.img.src = Cap;
 
+  // Wait for an Image to load to be able to get its width
   base.img.onload = () => {
     base.X = btnX + index * (gap + base.img.width);
     cap.X = base.X;
